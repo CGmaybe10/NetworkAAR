@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -38,4 +39,21 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                //建议和github地址对应，否则对jitpack无效 github.com/CGmaybe10
+                groupId = 'com.github.CGmaybe10'
+                //建议和github仓库名称对应，否则对jitpack无效
+                artifactId = 'NetworkAAR'
+                //建议和release的tag相同，否则对jitpack无效
+                version = '1.0.0'
+            }
+        }
+    }
 }
